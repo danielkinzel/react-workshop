@@ -31,8 +31,6 @@ const useDevices = () => {
 
 function Welcome(props: any): JSX.Element {
     const [messages, setMessages] = useState<Message[]>([]);
-
-
     const handleSubmit = (submittedMessage: Message) => { setMessages([...messages, submittedMessage]) };
     const devices = useDevices();
 
