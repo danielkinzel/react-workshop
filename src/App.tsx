@@ -15,25 +15,24 @@ const useDeviceState = (): [Device[], DeviceSetter] => {
 }
 
 const useDevices = () => {
+    const [devices, setDevices] = useDeviceState();
 
+    useEffect(() => {
+        fetch("/datasource/devices.json")
+        .then((response) => response.json())
+        .then((data) => setDevices(Object.values(data.devices)));
+    },[setDevices]);
+
+	return devices
 }
+
 
 function Welcome(props: any): JSX.Element {
     const [messages, setMessages] = useState<Message[]>([]);
-    const [devices, setDevices] = useDeviceState();
+    
+    const devices = useDevices();
 
     const handleSubmit = (submittedMessage: Message) => { setMessages([...messages, submittedMessage]) };
-
-    const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-    };
-
-    useEffect(() => {
-        fetch("/datasource/devices.json", requestOptions)
-            .then((response) => response.json())
-            .then((data) => setDevices(Object.values(data.devices)));
-    }, []);
 
     return (
         <>
