@@ -11,8 +11,8 @@ function DeviceList(props: Props): JSX.Element {
     
     return (
         <ul>
-            {props.devices.map(device => (
-                <DeviceView device={device} />
+            {props.devices.map((device, key) => (
+                <DeviceView key={key} device={device} />
             ))}
         </ul>
     )
